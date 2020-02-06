@@ -33,10 +33,17 @@ namespace Crisis.View
                 mainForm.Hide();
 
                 var AwaitLogin = new TaskCompletionSource<object>();
-                void local() => AwaitLogin.SetResult(null);
-                loginForm.LoginPressed += local;
+                var AwaitRegister = new TaskCompletionSource<object>();
+
+                void localLogin() => AwaitLogin.SetResult(null);
+                void localRegister() => AwaitRegister.SetResult(null);
+
+                loginForm.RegisterSubmitPressed += localRegister;
+                await AwaitRegister.Task;
+
+                loginForm.LoginPressed += localLogin;
                 await AwaitLogin.Task;
-                loginForm.LoginPressed -= local;
+                loginForm.LoginPressed -= localLogin;
 
                 //Order matters, if we close loginForm first then the whole application will shut itself down
                 MainForm = connectForm;

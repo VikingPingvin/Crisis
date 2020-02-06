@@ -1,4 +1,5 @@
 ﻿using System;
+using Crisis.Database.Model;
 using Crisis.Messages;
 using Crisis.Messages.Client;
 using Crisis.Messages.Server;
@@ -44,7 +45,13 @@ namespace Crisis.Network
             }
             else if (msg is RegisterMessage)
             {
-                Send(new RegisterResponeMessage { Response = RegisterResponse.Ok }); //TODO: Get a db
+                RegisterMessage regMsg = (RegisterMessage)msg;
+
+                UserModel registeredUser = new UserModel(regMsg.Mail, regMsg.Password);
+                if(Server.RegisterUser(registeredUser))
+                    Send(new RegisterResponeMessage { Response = RegisterResponse.Ok }); //TODO: Get a db
+                else
+                    Send(new RegisterResponeMessage { Response = RegisterResponse.NameTaken });
             }
 
             if (!Authed) return;

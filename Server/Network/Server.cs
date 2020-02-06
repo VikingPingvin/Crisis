@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using Crisis.Messages;
+using Crisis.Database;
+using Crisis.Database.Model;
 
 namespace Crisis.Network
 {
@@ -15,6 +17,8 @@ namespace Crisis.Network
 
         private static readonly ConcurrentDictionary<int, Client> clients = new ConcurrentDictionary<int, Client>();
         public static IReadOnlyDictionary<int, Client> Clients => clients;
+
+        private static IDatabaseHandler _db = new LocalJsonDatabase();
 
         public static void Start()
         {
@@ -31,6 +35,14 @@ namespace Crisis.Network
         {
             server.Disconnect(client.ID);
             clients.TryRemove(client.ID, out Client _);
+        }
+
+        public static bool RegisterUser(UserModel model)
+        {
+            // Probably change to int return, for [already registered, db error, invalid model]
+            if (_db.addUser(model))
+                return true;
+            return false;
         }
 
         public static void Stop() => server.Stop();

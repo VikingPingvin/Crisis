@@ -14,6 +14,6 @@ namespace Crisis.Database
 
         UserModel getUser();
 
-        int addUser(UserModel model);
+        bool addUser(UserModel model);
     }
 }

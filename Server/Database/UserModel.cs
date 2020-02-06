@@ -8,6 +8,11 @@ namespace Crisis.Database.Model
 {
     public class UserModel
     {
+        public UserModel(string emailAdress, string passwordHash)
+        {
+            this.emailAdress = emailAdress;
+            this.passwordHash = passwordHash;
+        }
 
         public string emailAdress { get; set; }
 

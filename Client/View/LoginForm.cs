@@ -12,6 +12,7 @@ namespace Crisis.View
         public string Password => passwordBox.Text;
 
         public event Action LoginPressed;
+        public event Action RegisterSubmitPressed;
 
         public string Error
         {
@@ -29,6 +30,16 @@ namespace Crisis.View
         private void login_Click(object sender, EventArgs e)
         {
             LoginPressed?.Invoke();
+        }
+
+        private void label3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            RegisterSubmitPressed?.Invoke();
         }
     }
 }

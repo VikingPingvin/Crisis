@@ -50,6 +50,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration.cs" />
+    <Compile Include="Database\IDatabaseHandler.cs" />
+    <Compile Include="Database\LocalJsonDatabase.cs" />
+    <Compile Include="Database\UserModel.cs" />
     <Compile Include="Network\Server.cs" />
     <Compile Include="Network\Client.cs" />
     <Compile Include="Character.cs" />
